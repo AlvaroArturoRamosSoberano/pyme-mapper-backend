@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('regulatory_aspects', function (Blueprint $table) {
             $table->id();
             $table->date('date_assessed');
-            $table->string('responsible_departmen');
+            $table->string('responsible_department');
             $table->boolean('conservation_program');
             $table->boolean('emergency_plan');
             $table->boolean('fire_extinguisher');

@@ -6,15 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Position extends Model
+class License extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['name', 'description'];
-    
-    public function tankDetails() 
+    protected $fillable = ['name'];
+
+    public function regulatoryLicenses()
     {
-        return $this->hasMany(TankDetail::class);
+        return $this->hasMany(RegulatoryLicense::class);
     }
 }

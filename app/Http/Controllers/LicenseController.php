@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Licence;
-use App\Http\Requests\licenses\StoreLicenceRequest;
-use App\Http\Requests\licenses\UpdateLicenceRequest;
+use App\Models\License;
+use App\Http\Requests\licenses\StoreLicenseRequest;
+use App\Http\Requests\licenses\UpdateLicenseRequest;
 
-class LicenceController extends Controller
+class LicenseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class LicenceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreLicenceRequest $request)
+    public function store(StoreLicenseRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class LicenceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Licence $licence)
+    public function show(License $licence)
     {
         //
     }
@@ -43,7 +43,7 @@ class LicenceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Licence $licence)
+    public function edit(License $licence)
     {
         //
     }
@@ -51,7 +51,7 @@ class LicenceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateLicenceRequest $request, Licence $licence)
+    public function update(UpdateLicenseRequest $request, License $licence)
     {
         //
     }
@@ -59,7 +59,7 @@ class LicenceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Licence $licence)
+    public function destroy(License $licence)
     {
         //
     }

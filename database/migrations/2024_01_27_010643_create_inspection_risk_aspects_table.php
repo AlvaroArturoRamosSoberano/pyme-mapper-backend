@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->boolean('gas_production');
             $table->integer('explosiveness');
-            $table->boolean('gas_tanks');
+            $table->boolean('gas_tank');
             $table->foreignId('inspection_id')->constrained();
             $table->foreignId('risk_aspect_id')->constrained();
             $table->softDeletes();

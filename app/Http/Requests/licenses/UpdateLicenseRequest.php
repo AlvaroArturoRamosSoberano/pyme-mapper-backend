@@ -4,7 +4,7 @@ namespace App\Http\Requests\licenses;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateLicenceRequest extends FormRequest
+class UpdateLicenseRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

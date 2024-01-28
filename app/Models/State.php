@@ -9,4 +9,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class State extends Model
 {
     use HasFactory;
+    use SoftDeletes;
+
+    protected $fillable = ['name'];
+
+    public function cities()
+    {
+        return $this->hasMany(City::class);
+    }
+    public function geographicDetails()
+    {
+        return $this->hasMany(GeographicDetail::class);
+    }
 }
