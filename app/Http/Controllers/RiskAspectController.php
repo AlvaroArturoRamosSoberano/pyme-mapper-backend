@@ -5,15 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\RiskAspect;
 use App\Http\Requests\riskAspects\StoreRiskAspectRequest;
 use App\Http\Requests\riskAspects\UpdateRiskAspectRequest;
+use App\Http\Responses\ApiResponse;
+use Exception;
+use Illuminate\Http\Request;
 
 class RiskAspectController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        $riskAspects = RiskAspect::paginate($request->get('per_page', 10));
+        return $riskAspects;
     }
 
     /**
@@ -30,6 +35,12 @@ class RiskAspectController extends Controller
     public function store(StoreRiskAspectRequest $request)
     {
         //
+        $riskAspect = RiskAspect::create($request->validated());
+        try {
+            return ApiResponse::success('Recurso creado exitosamente', 201, $riskAspect);
+        } catch (Exception $e) {
+            return ApiResponse::error('Algo salió mal', 422, $riskAspect);
+        }
     }
 
     /**
@@ -38,6 +49,8 @@ class RiskAspectController extends Controller
     public function show(RiskAspect $riskAspect)
     {
         //
+        $riskAspect = RiskAspect::find($riskAspect);
+        return ApiResponse::success('Recurso encontrado exitosamente', 200, $riskAspect);
     }
 
     /**
@@ -54,6 +67,8 @@ class RiskAspectController extends Controller
     public function update(UpdateRiskAspectRequest $request, RiskAspect $riskAspect)
     {
         //
+        $riskAspect->update($request->validated());
+        return ApiResponse::success('Recurso actualizado exitosamente', 200, $riskAspect);
     }
 
     /**
@@ -62,5 +77,7 @@ class RiskAspectController extends Controller
     public function destroy(RiskAspect $riskAspect)
     {
         //
+        $riskAspect->delete();
+        return ApiResponse::success('Eliminado exitosamente', 200);
     }
 }

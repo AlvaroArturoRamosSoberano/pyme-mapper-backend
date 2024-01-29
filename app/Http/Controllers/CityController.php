@@ -5,15 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\City;
 use App\Http\Requests\cities\StoreCityRequest;
 use App\Http\Requests\cities\UpdateCityRequest;
+use App\Http\Responses\ApiResponse;
+use Exception;
+use Illuminate\Http\Request;
 
 class CityController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        $cities = City::paginate($request->get('per_page', 10));
+        return $cities;
     }
 
     /**
@@ -30,6 +35,12 @@ class CityController extends Controller
     public function store(StoreCityRequest $request)
     {
         //
+        $city = City::create($request->validated());
+        try {
+            return ApiResponse::success('Recurso creado exitosamente', 201, $city);
+        } catch (Exception $e) {
+            return ApiResponse::error('Algo salió mal', 422, $city);
+        }
     }
 
     /**
@@ -38,6 +49,8 @@ class CityController extends Controller
     public function show(City $city)
     {
         //
+        $city = City::find($city);
+        return ApiResponse::success('Recurso encontrado exitosamente', 200, $city);
     }
 
     /**
@@ -54,6 +67,8 @@ class CityController extends Controller
     public function update(UpdateCityRequest $request, City $city)
     {
         //
+        $city->update($request->validated());
+        return ApiResponse::success('Recurso actualizado exitosamente', 200, $city);
     }
 
     /**
@@ -62,5 +77,7 @@ class CityController extends Controller
     public function destroy(City $city)
     {
         //
+        $city->delete();
+        return ApiResponse::success('Eliminado exitosamente', 200);
     }
 }

@@ -5,15 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 use App\Http\Requests\brands\StoreBrandRequest;
 use App\Http\Requests\brands\UpdateBrandRequest;
+use App\Http\Responses\ApiResponse;
+use Exception;
+use Illuminate\Http\Request;
 
 class BrandController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        $brands = Brand::paginate($request->get('per_page', 10));
+        return $brands;
     }
 
     /**
@@ -30,6 +35,12 @@ class BrandController extends Controller
     public function store(StoreBrandRequest $request)
     {
         //
+        $brand = Brand::create($request->validated());
+        try {
+            return ApiResponse::success('Recurso creado exitosamente', 201, $brand);
+        } catch (Exception $e) {
+            return ApiResponse::error('Algo salió mal', 422, $brand);
+        }
     }
 
     /**
@@ -38,6 +49,8 @@ class BrandController extends Controller
     public function show(Brand $brand)
     {
         //
+        $brand = Brand::find($brand);
+        return ApiResponse::success('Recurso encontrado exitosamente', 200, $brand);
     }
 
     /**
@@ -54,6 +67,8 @@ class BrandController extends Controller
     public function update(UpdateBrandRequest $request, Brand $brand)
     {
         //
+        $brand->update($request->validated());
+        return ApiResponse::success('Recurso actualizado exitosamente', 200, $brand);
     }
 
     /**
@@ -62,5 +77,7 @@ class BrandController extends Controller
     public function destroy(Brand $brand)
     {
         //
+        $brand->delete();
+        return ApiResponse::success('Eliminado exitosamente', 200);
     }
 }

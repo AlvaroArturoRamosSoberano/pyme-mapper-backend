@@ -5,15 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use App\Http\Requests\companies\StoreCompanyRequest;
 use App\Http\Requests\companies\UpdateCompanyRequest;
+use App\Http\Responses\ApiResponse;
+use Exception;
+use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        $companies = Company::paginate($request->get('per_page', 10));
+        return $companies;
     }
 
     /**
@@ -30,6 +35,12 @@ class CompanyController extends Controller
     public function store(StoreCompanyRequest $request)
     {
         //
+        $company = Company::create($request->validated());
+        try {
+            return ApiResponse::success('Recurso creado exitosamente', 201, $company);
+        } catch (Exception $e) {
+            return ApiResponse::success('Algo salió mal', 422, $company);
+        }
     }
 
     /**
@@ -38,6 +49,8 @@ class CompanyController extends Controller
     public function show(Company $company)
     {
         //
+        $company = Company::find($company);
+        return ApiResponse::success('Recurso encontrado exitosamente', 200, $company);
     }
 
     /**
@@ -54,6 +67,8 @@ class CompanyController extends Controller
     public function update(UpdateCompanyRequest $request, Company $company)
     {
         //
+        $company->update($request->validated());
+        return ApiResponse::success('Recurso actualizado exitosamente', 200, $company);
     }
 
     /**
@@ -62,5 +77,7 @@ class CompanyController extends Controller
     public function destroy(Company $company)
     {
         //
+        $company->delete();
+        return ApiResponse::success('Eliminado exitosamente', 200);
     }
 }

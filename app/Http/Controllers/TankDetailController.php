@@ -5,15 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\TankDetail;
 use App\Http\Requests\tankDetails\StoreTankDetailRequest;
 use App\Http\Requests\tankDetails\UpdateTankDetailRequest;
+use App\Http\Responses\ApiResponse;
+use Exception;
+use Illuminate\Http\Request;
 
 class TankDetailController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        $tankDetails = TankDetail::paginate($request->get('per_page', 10));
+        return $tankDetails;
     }
 
     /**
@@ -30,6 +35,12 @@ class TankDetailController extends Controller
     public function store(StoreTankDetailRequest $request)
     {
         //
+        $tankDetail = TankDetail::create($request->validated());
+        try {
+            return ApiResponse::success('Recurso creado exitosamente', 201, $tankDetail);
+        } catch (Exception $e) {
+            return ApiResponse::error('Algo salió mal', 422, $tankDetail);
+        }
     }
 
     /**
@@ -38,6 +49,8 @@ class TankDetailController extends Controller
     public function show(TankDetail $tankDetail)
     {
         //
+        $tankDetail = TankDetail::find($tankDetail);
+        return ApiResponse::success('Recurso encontrado exitosamente', 200, $tankDetail);
     }
 
     /**
@@ -54,6 +67,8 @@ class TankDetailController extends Controller
     public function update(UpdateTankDetailRequest $request, TankDetail $tankDetail)
     {
         //
+        $tankDetail->update($request->validated());
+        return ApiResponse::success('Recurso actualizado exitosamente', 200, $tankDetail);
     }
 
     /**
@@ -62,5 +77,7 @@ class TankDetailController extends Controller
     public function destroy(TankDetail $tankDetail)
     {
         //
+        $tankDetail->delete();
+        return ApiResponse::success('Eliminado exitosamente', 200);
     }
 }

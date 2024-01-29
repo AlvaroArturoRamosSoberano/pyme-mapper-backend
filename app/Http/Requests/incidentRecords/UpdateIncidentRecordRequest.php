@@ -4,7 +4,7 @@ namespace App\Http\Requests\incidentRecords;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreIncidenRecordRequest extends FormRequest
+class UpdateIncidentRecordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
