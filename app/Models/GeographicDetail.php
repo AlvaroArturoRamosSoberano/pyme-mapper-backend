@@ -11,7 +11,7 @@ class GeographicDetail extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['latitude', 'longitude', 'street', 'state_id', 'municipality_id', 'colony_id', 'city_id'];
+    protected $fillable = ['latitude', 'longitude', 'street', 'state_id', 'municipality_id', 'colony_id'];
 
     public function company()
     {
@@ -28,9 +28,5 @@ class GeographicDetail extends Model
     public function colony()
     {
         return $this->belongsTo(Colony::class);
-    }
-    public function city()
-    {
-        return $this->belongsTo(City::class);
     }
 }

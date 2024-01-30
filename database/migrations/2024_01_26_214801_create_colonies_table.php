@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('colonies', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('city_id')->constrained();
+            $table->foreignId('municipality_id')->constrained();
             $table->softDeletes();
             $table->timestamps();
         });

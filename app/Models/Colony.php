@@ -11,10 +11,10 @@ class Colony extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['name', 'city_id'];
+    protected $fillable = ['name', 'municipality_id'];
 
-    public function city() {
-        return $this->belongsTo(City::class);
+    public function municipality() {
+        return $this->belongsTo(Municipality::class);
     }
     public function geographicDetails()
     {

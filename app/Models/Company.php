@@ -27,7 +27,7 @@ class Company extends Model
     }
     public function incidentRecords()
     {
-        return $this->hasMany(IncidenRecord::class);
+        return $this->hasMany(IncidentRecord::class);
     }
     public function inspections()
     {

@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\BrandController;
-use App\Http\Controllers\CityController;
 use App\Http\Controllers\ColonyController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\FireExtinguisherDetailController;
@@ -43,7 +42,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('brands', BrandController::class);
-Route::apiResource('cities', CityController::class);
 Route::apiResource('colonies', ColonyController::class);
 Route::apiResource('companies', CompanyController::class);
 Route::apiResource('fire-extinguisher-details', FireExtinguisherDetailController::class);

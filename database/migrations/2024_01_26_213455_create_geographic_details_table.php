@@ -17,6 +17,8 @@ return new class extends Migration
             $table->double('longitude');
             $table->string('street');
             $table->foreignId('state_id')->constrained();
+            $table->foreignId('municipality_id')->constrained();
+            $table->foreignId('colony_id')->constrained();
             $table->softDeletes();
             $table->timestamps();
         });

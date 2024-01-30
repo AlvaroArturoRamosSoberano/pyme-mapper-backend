@@ -11,10 +11,18 @@ class Municipality extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['name', 'city_id'];
+    protected $fillable = ['name', 'state_id'];
 
-    public function city()
+    public function state()
     {
-        return $this->belongsTo(City::class);
+        return $this->belongsTo(State::class);
+    }
+    public function colonies()
+    {
+        return $this->hasMany(Colony::class);
+    }
+    public function geographicDetails()
+    {
+        return $this->hasMany(GeographicDetail::class);
     }
 }
